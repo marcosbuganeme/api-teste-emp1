@@ -1,5 +1,6 @@
 package teste.maxima.sistemas.domain.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -16,11 +17,7 @@ public class Cliente extends DomainModel<Long> {
 
 	public Cliente() {}
 
-	public Cliente(String email, String razaoSocial) {
-		this.email = email;
-		this.razaoSocial = razaoSocial;
-	}
-
+	@Column(name = "razao_social", nullable = false)
 	@NotBlank(message = "Nome é obrigatório")
 	public String getRazaoSocial() {
 		return razaoSocial;
@@ -30,6 +27,7 @@ public class Cliente extends DomainModel<Long> {
 		this.razaoSocial = razaoSocial;
 	}
 
+	@Column(nullable = false)
 	@Email(message = "E-mail inválido")
 	@NotBlank(message = "E-mail é obrigatório")
 	public String getEmail() {

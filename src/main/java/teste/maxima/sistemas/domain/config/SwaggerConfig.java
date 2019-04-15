@@ -25,7 +25,7 @@ public class SwaggerConfig {
     public Docket apiDoc() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                    .apis(RequestHandlerSelectors.basePackage("api.carrinho.compra.domain.controller"))
+                    .apis(RequestHandlerSelectors.basePackage("teste.maxima.sistemas.domain.controller"))
                     .paths(regex("/v1.*"))
                     .build()
                 .globalOperationParameters(Collections.singletonList(new ParameterBuilder()

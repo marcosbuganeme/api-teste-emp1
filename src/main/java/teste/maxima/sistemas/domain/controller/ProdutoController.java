@@ -49,7 +49,7 @@ public class ProdutoController {
 					.created(location)
 					.body(produtoSalvo);
 	}
-	
+
 	@PutMapping("{id:\\d+}")
 	@ApiOperation(value = "Editar um produto", response = Produto.class)
 	public ResponseEntity<?> editar(@PathVariable("id") Long id, @Valid @RequestBody Produto produto) {
@@ -59,6 +59,15 @@ public class ProdutoController {
 		return ResponseEntity.ok(produtoAtualizado);
 	}
 
+    @GetMapping("ultimo/cadastrado")
+    @ApiOperation(value = "Recupera o último produto", response = Produto.class)
+	public ResponseEntity<?> buscarPorId() {
+
+		Produto ultimoProdutoCadastrado = produtoService.buscarUltimoProduto();
+
+		return ResponseEntity.ok(ultimoProdutoCadastrado);
+	}
+	
     @GetMapping("{id:\\d+}")
     @ApiOperation(value = "Recupera um produto pelo seu identificador", response = Produto.class)
 	public ResponseEntity<?> buscarPorId(@PathVariable("id") Long id) {

@@ -47,6 +47,11 @@ public @Service class ProdutoService {
 		return produtoRepository.findById(id);
 	}
 
+	public Produto buscarUltimoProduto() {
+
+		return produtoRepository.findFirstByOrderByIdDesc();
+	}
+	
 	public List<Produto> findAll() {
 
 		return produtoRepository.findAll();

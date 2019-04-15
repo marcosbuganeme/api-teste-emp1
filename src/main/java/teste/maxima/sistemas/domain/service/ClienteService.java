@@ -1,12 +1,11 @@
 package teste.maxima.sistemas.domain.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import javax.transaction.Transactional;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,10 +44,13 @@ public @Service class ClienteService {
 
 	private ClienteService verificaRegraDeEmailDo(Cliente cliente) {
 
-		clienteRepository
-			.findByEmail(cliente.getEmail())
-			.filter(apenasEmailsValidosDo(cliente))
-			.orElseThrow(() -> new ResourceDuplicateException("E-mail já cadastrado"));
+		Cliente clientePesquisado = clienteRepository
+										.findByEmail(cliente.getEmail())
+										.orElse(null);
+
+		if (Objects.nonNull(clientePesquisado)) {
+			throw new ResourceDuplicateException("E-mail já cadastrado");
+		}
 
 		return this;
 	}
@@ -56,12 +58,6 @@ public @Service class ClienteService {
 	private Cliente salva(Cliente cliente) {
 
 		return clienteRepository.save(cliente);
-	}
-
-	private Predicate<Cliente> apenasEmailsValidosDo(Cliente clienteFormulario) {
-
-		return clientePesquisado -> StringUtils.compareIgnoreCase(clientePesquisado.getEmail(), 
-							   									  clienteFormulario.getEmail()) == 0;
 	}
 
 	private ClienteService e() { return this; }
