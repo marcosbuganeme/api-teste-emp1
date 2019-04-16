@@ -17,6 +17,13 @@ public class Cliente extends DomainModel<Long> {
 
 	public Cliente() {}
 
+	// Facilitar os testes de integração
+	public Cliente(Long id, String email, String razaoSocial) {
+		setId(id);
+		this.email = email;
+		this.razaoSocial = razaoSocial;
+	}
+
 	@Column(name = "razao_social", nullable = false)
 	@NotBlank(message = "Nome é obrigatório")
 	public String getRazaoSocial() {

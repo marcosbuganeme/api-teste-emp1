@@ -14,6 +14,15 @@ public class Produto extends DomainModel<Long> {
 	private String descricao;
 	private Double preco;
 
+	public Produto() {}
+	
+	// facilitar testes
+	public Produto(Long id, String descricao, Double preco) {
+		setId(id);
+		this.descricao = descricao;
+		this.preco = preco;
+	}
+
 	@NotBlank(message = "Descrição é obrigatório")
 	public String getDescricao() {
 		return descricao;
